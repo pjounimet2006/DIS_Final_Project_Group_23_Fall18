@@ -1,0 +1,40 @@
+﻿
+
+@model IEnumerable<IEXTrading.Models.Stat>
+<h2>Top 5 Stocks according to  Asset/ Debt Ratio</h2>
+<p>The current ratio</a> is a popular financial ratio used to test a company's liquidity — also referred to as its current or working capital position — by deriving the proportion of current assets available to cover current liabilities. The concept behind this ratio is to ascertain whether a company's short-term assets (cash, cash equivalents, marketable securities, receivables, and inventory) are readily available to pay off its short-term liabilities (notes payable, current portion of term debt, payables, accrued expenses, and taxes). In theory, the higher the current ratio, the better.</p>
+<p>Source: <a href="https://www.investopedia.com/slide-show/simple-ratios/">Investopedia</a> </p>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Symbol
+            </th>
+
+            <th>
+                CurrentRatio
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.symbol)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.current_ratio)
+                </td>
+
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+<script>
+    alertDbSave(@ViewBag.dbSuccessComp);
+</script>

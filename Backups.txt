@@ -1,0 +1,99 @@
+//Top 5 Back UP
+
+public IActionResult Top5()
+        {
+            //Set ViewBag variable first
+            ViewBag.dbSucessComp = 0;
+            IEXHandler webHandler = new IEXHandler();
+            List<Company> companies = webHandler.GetSymbolsTotal();
+            if (dbContext.Companies.Count()==0)
+            { PopulateSymbolsDB(companies); }
+
+            if (dbContext.FinancialReports.Count() == 0)
+            {
+                foreach (Company comp in dbContext.Companies)
+                {
+                    IEXHandler webHandler2 = new IEXHandler();
+                    
+                    if (webHandler2.GetFinancials(comp.symbol) != null)
+                    {
+                        FinanceInfo fininfo = new FinanceInfo();
+                        fininfo = webHandler2.GetFinancials(comp.symbol);
+                        PopulateFinacialReportsDB(fininfo);
+                    }
+                }
+            }
+            return View();
+        }
+
+
+//Stores 1 Quote in DB
+        public IActionResult Index()
+        {
+
+            IEXHandler webHandler2 = new IEXHandler();
+
+            FinanceInfo fininfo = new FinanceInfo();
+            fininfo = webHandler2.GetFinancials("Z");
+            PopulateFinacialReportsDB(fininfo);
+
+            return View();
+        }
+
+
+//Version that puts one  Quote in a List
+public IActionResult Index()
+        {
+
+                IEXHandler webHandler2 = new IEXHandler();
+
+                    FinanceInfo fininfo = new FinanceInfo();
+                    fininfo = webHandler2.GetFinancials("AAL");
+                    //PopulateFinacialReportsDB(fininfo);
+
+            List<FinancialReport> tempfin = new List<FinancialReport> { };
+
+            foreach (FinancialReport FinReport in fininfo.financials)
+
+            { FinReport.symbol = "AAL";
+                tempfin.Add(FinReport);
+                Console.WriteLine(FinReport.symbol + " " + FinReport.reportDate);
+            }
+            Console.WriteLine(tempfin.Count);
+
+
+
+
+
+
+            return View();
+        }
+//Version that puts every Quote in a List
+        
+ public IActionResult Index()
+        {
+
+            //    IEXHandler webHandler2 = new IEXHandler();
+
+            //      FinanceInfo fininfo = new FinanceInfo();
+            //    fininfo = webHandler2.GetFinancials("AAL");
+            List<FinancialReport> tempfin = new List<FinancialReport> { };
+
+            foreach (Company comp in dbContext.Companies)
+            {
+                IEXHandler webHandler2 = new IEXHandler();
+
+                if (webHandler2.GetFinancials(comp.symbol) != null)
+                {
+                    FinanceInfo fininfo = new FinanceInfo();
+                    fininfo = webHandler2.GetFinancials(comp.symbol);
+                    foreach (FinancialReport FinReport in fininfo.financials)
+
+                    {
+                        FinReport.symbol = comp.symbol;
+                        tempfin.Add(FinReport);
+                        Console.WriteLine(FinReport.symbol + " " + FinReport.reportDate);
+                    }
+                    Console.WriteLine(tempfin.Count);
+                }
+            }
