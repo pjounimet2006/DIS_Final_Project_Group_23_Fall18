@@ -9,6 +9,8 @@ using IEXTrading.Models;
 using IEXTrading.Models.ViewModel;
 using IEXTrading.DataAccess;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+
 
 namespace MVCTemplate.Controllers
 {
@@ -25,6 +27,11 @@ namespace MVCTemplate.Controllers
         {
 
            return View();
+        }
+        public IActionResult AboutUs()
+        {
+
+            return View();
         }
         /*Method that Calls for FinancialReports View and lets user
          /* Get Financial Reports into a DB for a given Symbol*/
@@ -99,10 +106,14 @@ namespace MVCTemplate.Controllers
             //Set ViewBag variable first
             ViewBag.dbSucessComp = 0;
             IEXHandler webHandler = new IEXHandler();
-            List<Company> companies = webHandler.GetSymbols();
+            List<Company> companies = webHandler.GetSymbolsTotal();
 
+            
             //Save comapnies in TempData
-            TempData["Companies"] = JsonConvert.SerializeObject(companies);
+            //TempData["Companies"] = JsonConvert.SerializeObject(companies);
+            String companiesData = JsonConvert.SerializeObject(companies);
+            
+
 
             return View(companies);
         }
@@ -148,7 +159,7 @@ namespace MVCTemplate.Controllers
          * Saves the Symbols in database.
         ****/
         public IActionResult PopulateSymbols()
-        {
+        { 
             List<Company> companies = JsonConvert.DeserializeObject<List<Company>>(TempData["Companies"].ToString());
             foreach (Company company in companies)
             {
@@ -167,8 +178,12 @@ namespace MVCTemplate.Controllers
       
 /* Script to Get all Symbols into Database */
             
-        public void PopulateSymbolsDB(List<Company> companies)
+        public IActionResult PopulateSymbolsDB()
         {
+            ViewBag.dbSucessComp = 0;
+            IEXHandler webHandler = new IEXHandler();
+            List<Company> companies = webHandler.GetSymbolsTotal();
+
             //List<Company> companies = JsonConvert.DeserializeObject<List<Company>>(TempData["Companies"].ToString());
             foreach (Company company in companies)
             {
@@ -181,7 +196,8 @@ namespace MVCTemplate.Controllers
             }
             dbContext.SaveChanges();
             ViewBag.dbSuccessComp = 1;
-            
+            return View("Symbols", companies);
+
         }
 
         public IActionResult SaveFinacialReportsDB(string symbol)
@@ -189,18 +205,19 @@ namespace MVCTemplate.Controllers
             IEXHandler webHandler = new IEXHandler();
             FinanceInfo tempFinfo = new FinanceInfo();
             tempFinfo= webHandler.GetFinancials(symbol);
-            
-            foreach (FinancialReport fr in tempFinfo.financials)
+            if (tempFinfo.financials != null)
             {
-                
+                foreach (FinancialReport fr in tempFinfo.financials)
+                {
+
                     fr.symbol = tempFinfo.symbol;
 
                     dbContext.FinancialReports.Add(fr);
-                
-            }
-            dbContext.SaveChanges();
-            ViewBag.dbSuccessComp = 1;
 
+                }
+                dbContext.SaveChanges();
+                ViewBag.dbSuccessComp = 1;
+            }
             return View("Index");
         }
 
@@ -240,6 +257,8 @@ namespace MVCTemplate.Controllers
                 //First remove equities and then the companies
                 dbContext.Equities.RemoveRange(dbContext.Equities);
                 dbContext.Companies.RemoveRange(dbContext.Companies);
+                dbContext.Stats.RemoveRange(dbContext.Stats);
+                dbContext.FinancialReports.RemoveRange(dbContext.FinancialReports);
             }
             else if ("Companies".Equals(tableToDel))
             {
@@ -255,6 +274,10 @@ namespace MVCTemplate.Controllers
             else if ("Stats".Equals(tableToDel))
             {
                 dbContext.Stats.RemoveRange(dbContext.Stats);
+            }
+            else if ("FinancialReports".Equals(tableToDel))
+            {
+                dbContext.FinancialReports.RemoveRange(dbContext.FinancialReports);
             }
             dbContext.SaveChanges();
         }

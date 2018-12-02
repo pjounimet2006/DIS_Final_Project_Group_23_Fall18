@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "About Us";
+}
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+
+<center>
+
+    <h2>Meet Team #23</h2>
+</center>
+<center>
+    <div class="row">
+        <div class="column">
+
+            <img src="~/images/Arpitaone.jpg" alt="Arpita" style="width:30%">
+
+            <h2>Arpita Nayak</h2>
+            <p class="title">BAIS, Fall 2019</p>
+            <p>Business Analytics student at USF</p>
+            <p><a href="mailto: arpitanayak@mail.usf.edu">arpitanayak@mail.usf.edu</a></p>
+
+
+
+        </div>
+
+        <div class="column">
+
+            <img src="~/images/Pedro.jpg" alt="Pedro" style="width:30%">
+
+            <h2>Pedro Ortiz</h2>
+            <p class="title">BAIS, Fall 2019</p>
+            <p>Business Analytics student at USF</p>
+            <p><a href="mailto: pedroo@mail.usf.edu">pedroo@mail.usf.edu</a></p>
+
+
+
+
+        </div>
+        <div class="column">
+
+            <img src="~/images/Harsha.jpg" alt="Harsha" style="width:30%">
+
+            <h2>Harshavardhan Reddy Perugu</h2>
+            <p class="title">BAIS, Fall 2019</p>
+            <p>Business Analytics student at USF</p>
+            <p><a href="mailto: hperugu@mail.usf.edu">hperugu@mail.usf.edu</a></p>
+
+
+
+        </div>
+    </div>
+</center>
+<hr />
+
+<p>
+
+    The following skills where obtained,practiced and improved during this project: -
+    <ul>
+        <li>Development of Microsoft MVC Arquitecture Solutions</li>
+        <li>Understanding and modification of existing code for new business requirements</li>
+        <li>Connection to API source to get data and use it to process data and obtain information</li>
+        <li>Connectuon to SQL Server Database</li>
+        <li>HTML and Website deployemnt</li>
+        <li>Research of diverse Stock Picking Methods</li>
+    </ul>
+</p>
+<p>
+
+    Our Stock Picking Strategy Consists -
+    <ul>
+        <li>1. Extraction of complete Stock Symbols from IEX API source</li>
+        <li>2. For each symbol, application gets Financial report of last quater using method provided by TA. Due to the amount of records, user must choose one by one symbols to use in ranking.</li>
+        <li>3. When user gets to the TOP 5 Section of site, the Top 5 stocks based on the Current Ratio Financial indicartor will be shown.</li>
+        <li>4. The information received from the API was many times incomplete in terms of available financial indicators.</li>
+        <li>5. Because of the latter, we chose to stick with the Current Ratio Strategy. (For example many columns where other financial indicators could help in other Ratios where NULL.) </li>
+<li>The current ratio</a> is a popular financial ratio used to test a company's liquidity — also referred to as its current or working capital position — by deriving the proportion of current assets available to cover current liabilities. The concept behind this ratio is to ascertain whether a company's short-term assets (cash, cash equivalents, marketable securities, receivables, and inventory) are readily available to pay off its short-term liabilities (notes payable, current portion of term debt, payables, accrued expenses, and taxes). In theory, the higher the current ratio, the better.</li>
+<li>Source: <a href="https://www.investopedia.com/slide-show/simple-ratios/">Investopedia</a> </li>
+        <li> 6. The Refresh Section of the site was updated to include the Financial Reports View and the Stat View. The latter is the one responsible for showing the ranking to the user.</li>
+    </ul>
+</p>
+

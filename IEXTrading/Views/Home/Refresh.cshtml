@@ -2,12 +2,9 @@
 @{
     ViewData["Title"] = "Refresh";
 }
-
 <h2>Refresh</h2>
 <hr />
-
 <p>Refreshing the tables, deletes all contents of the tables.</p>
-
 <table class="table">
     <thead>
         <tr>
@@ -18,11 +15,9 @@
                 Records
             </th>
             <th>
-
             </th>
         </tr>
     </thead>
-
     <tbody>
         <tr>
             <td>
@@ -35,7 +30,6 @@
                 <a asp-controller="Home" asp-action="Refresh" asp-route-tableToDel="all">Refresh</a>
             </td>
         </tr>
-
         @foreach (KeyValuePair<string, int> item in Model)
         {
             <tr>
@@ -50,6 +44,22 @@
                 </td>
             </tr>
         }
+        <hr />
+
 
     </tbody>
 </table>
+<p>
+    <hr />
+    Note: Be Careful about deleting all components from Site. If doing so, please save data again in the following manner:
+    <ul>
+        <li>1. Store Symbols. This process takes a while since it takes 8000+ symbols from IEX API.</li>
+        <li>2. Store Financial Reports until records reach numbers above 50. If not ranking will not work.</li>
+        <li>3. Try using Financial Reports from Big Companies (I.E. Amazon, Google, American Airlines, etc). There where many companies that did not provide suficient information for ranking.</li>
+    </ul>
+<p>
+    <pi>After all this is done you should be able to see the Top 5 Stock Ranking.</pi>
+
+
+</p>
+        

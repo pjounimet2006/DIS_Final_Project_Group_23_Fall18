@@ -16,7 +16,7 @@ namespace IEXTrading.Infrastructure.IEXTradingHandler
         public IEXHandler()
         {
             httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromSeconds(1);
+            //httpClient.Timeout = TimeSpan.FromHours(1);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }

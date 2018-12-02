@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using IEXTrading.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace MVCTemplate
 {
     public class Startup

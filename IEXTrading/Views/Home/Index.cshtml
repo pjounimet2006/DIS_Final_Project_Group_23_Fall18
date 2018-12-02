@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
-
+<h2>DIS Project Submission</h2>
 <h2>IEX Trading Application - An Adaptation by Group #23</h2>
 <h2>Arpita Nayak -  Pedro Ortiz Rodriguez - Harshavardhan Reddy Perugu</h2>
 <hr />
@@ -20,6 +20,10 @@
         The quote can also be saved in the local database.
         <br />
         The <a asp-area="" asp-controller="Home" asp-action="Refresh">Refresh</a> tab let's you refresh the local database, that is, remove all its contents.
+        <br />
+        The <a asp-area="" asp-controller="Home" asp-action="FinancialReports">Financial Reports</a> tab let's you load into the database Financial information of companies you wish to add to Top 5 Stock Picking Method.
+        <br />
+        The <a asp-area="" asp-controller="Home" asp-action="Stats">Top 5</a> tab let's get information on the 5 Stocks that currently have top perfomance according to the team's Stock picking strategy.
     </p>
     <p>
         Following learning objectives are fulfilled -
